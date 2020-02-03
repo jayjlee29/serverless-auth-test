@@ -1,7 +1,6 @@
 
 
-//const authenticationEndpoint = 'https://auth.share.decompany.io'
-const authenticationEndpoint = 'http://localhost:3002'
+const authenticationEndpoint = 'https://auth.share.decompany.io'
 const contentApiEndpoint = 'https://gsus0vxt01.execute-api.us-west-1.amazonaws.com/dev'
 function testToken() {
   const authorizationToken = localStorage.getItem('authorization_token')
