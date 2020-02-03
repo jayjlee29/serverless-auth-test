@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "chalk": "^2.4.1",
-    "js-yaml": "^3.12.0",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.10",
     "serverless-dynamodb-local": "^0.2.10",
     "serverless-offline": "^5.12.1"
