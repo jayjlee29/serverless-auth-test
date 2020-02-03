@@ -1,0 +1,9 @@
+{
+  "name": "serverless-test-token-content-service",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.608.0",
+    "faunadb": "^2.5.0"
+  }
+}
