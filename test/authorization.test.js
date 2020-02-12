@@ -1,5 +1,5 @@
 const { utils, config } = require('serverless-authentication')
-
+const kms = new AWS.KMS()
 const authorize = require('../authentication/lib/handlers/authorizeHandler')
 
 describe('Authorization', () => {
@@ -7,7 +7,7 @@ describe('Authorization', () => {
     process.env.STAGE = 'dev'
     process.env.CACHE_DB_NAME = 'dev-serverless-authentication-cache'
     process.env.REDIRECT_CLIENT_URI = 'http://127.0.0.1:3000/'
-    process.env.TOKEN_SECRET = 'token-secret-123'
+    process.env.TOKEN_SECRET = 'AQICAHiXVVVSkUgHjrU32MwdGqx51qVn7q0aux9EGwy0iHVsEQFlXDW8iq6+Eg969T4GyS6uAAAAbDBqBgkqhkiG9w0BBwagXTBbAgEAMFYGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMmkMRxTSmRBoUoT3oAgEQgClF6fiPFs6TcDWa6mKMf2PWo+ezSjpaaJLowNuXXnfJo1UG7IVLyTkuww=='
   })
 
   describe('Authorize', () => {

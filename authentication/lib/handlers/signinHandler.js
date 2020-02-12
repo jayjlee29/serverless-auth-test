@@ -33,10 +33,13 @@ async function signinHandler(proxyEvent) {
         })
         break
       case 'google':
+        /*
         data = google.signinHandler(providerConfig, {
           scope: 'openid profile email',
           state
         })
+        */
+       data = customGoogle.signinHandler(providerConfig, { state })
         break
       case 'microsoft':
         data = microsoft.signinHandler(providerConfig, {

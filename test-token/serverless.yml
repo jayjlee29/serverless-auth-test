@@ -1,4 +1,4 @@
-service: decompany-auth-test-token # NOTE: update this with your service name
+service: auth-provider-test-token # NOTE: update this with your service name
 
 provider:
   name: aws
@@ -10,7 +10,9 @@ provider:
       Action:
         - dynamodb:*
       Resource: "*"
-      
+  environment:
+    USERS_DB_NAME: auth-provider-users-dev
+
 functions:
   testToken:
     handler: handler.test
@@ -29,7 +31,7 @@ functions:
               - X-Amz-Security-Token
             allowCredentials: true
           authorizer:
-            arn: arn:aws:lambda:us-west-1:197966029048:function:decompany-auth-dev-authorize
+            arn: arn:aws:lambda:us-west-1:197966029048:function:auth-provider-dev-authorize
             resultTtlInSeconds: 0
             identitySource: method.request.header.Authorization
             identityValidationExpression: .*

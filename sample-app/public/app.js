@@ -1,16 +1,21 @@
 
 
 const authenticationEndpoint = 'https://auth.share.decompany.io'
-const contentApiEndpoint = 'https://gsus0vxt01.execute-api.us-west-1.amazonaws.com/dev'
+//const contentApiEndpoint = 'https://msq4brz5o9.execute-api.us-west-1.amazonaws.com/dev'
+
+const contentApiEndpoint = 'https://td7tx2gu25.execute-api.us-west-1.amazonaws.com/authtest/api/account/get'
+
 function testToken() {
   const authorizationToken = localStorage.getItem('authorization_token')
+  //console.log('authorizationToken', authorizationToken);
+
   if (authorizationToken) {
     $('#test-result').html('Loading...')
-
     // set token to Authorization header
     $.ajax({
       method: 'GET',
-      url: `${contentApiEndpoint}/test-token`,
+      //url: `${contentApiEndpoint}/test-token`,
+      url : `${contentApiEndpoint}`,
       headers: {
         Authorization: authorizationToken
       }
@@ -27,13 +32,14 @@ function testToken() {
         }
       })
   } else {
+    console.log('22222222')
     $('#test-result').html('Unauthorized')
   }
 }
 
 function refreshToken() {
   $('#test-result').html('Loading...')
-
+  console.log('refreshToken')
   // refresh token
   $.ajax({
     method: 'GET',

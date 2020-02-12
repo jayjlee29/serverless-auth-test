@@ -1,10 +1,11 @@
 frameworkVersion: ">=1.30.3 <2.0.0"
 
-service: decompany-auth # change this
+service: auth-provider
 
 provider:
   name: aws
-  region: us-west-1
+  stage: ${opt:stage, 'dev'}
+  region: ${self:provider.environment.REGION, ""}
   environment: ${file(./env.yml):${opt:stage, self:provider.stage}}
   iamRoleStatements:
     - Effect: Allow
@@ -23,6 +24,11 @@ provider:
       Action:
       - cognito-idp:*
       Resource: arn:aws:cognito-idp:*:*:*
+    - Effect: Allow
+      Action:
+      - kms:*
+      Resource: "*"
+      
   runtime: nodejs10.x
 
 package:
