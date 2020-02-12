@@ -25,3 +25,10 @@ aws kms decrypt \
     --output text \
     --query Plaintext | base64 --decode
 ```
+
+### CURL Test
+
+```bash
+curl -I -H 'Authorization: {JWT TOKEN}' \
+https://td7tx2gu25.execute-api.us-west-1.amazonaws.com/authtest/api/account/get
+```
