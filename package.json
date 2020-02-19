@@ -16,14 +16,14 @@
     "lambda"
   ],
   "devDependencies": {
-    "aws-sdk": "^2.302.0",
+    "aws-sdk": "^2.611.0",
     "dotenv": "^6.0.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
-    "jest": "^23.5.0",
+    "jest": "^23.6.0",
     "log4js": "^3.0.5",
     "nock": "^9.6.1",
     "serverless-authentication": "^0.6.3"

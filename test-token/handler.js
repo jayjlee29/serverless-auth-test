@@ -41,7 +41,7 @@ module.exports.test = (event, context, cb) => {
 
 const getUser = async (userId) => {
   const params = {
-    TableName: 'decompany-auth-users-dev',
+    TableName: process.env.USERS_DB_NAME,
     Key: {
       'userId': {S: userId}
     }

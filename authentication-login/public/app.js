@@ -1,62 +1,7 @@
 
 
 const authenticationEndpoint = 'https://auth.share.decompany.io'
-//const contentApiEndpoint = 'https://msq4brz5o9.execute-api.us-west-1.amazonaws.com/dev'
 
-const contentApiEndpoint = 'https://td7tx2gu25.execute-api.us-west-1.amazonaws.com/authtest/api/account/get'
-
-function testToken() {
-  const authorizationToken = localStorage.getItem('authorization_token')
-  //console.log('authorizationToken', authorizationToken);
-
-  if (authorizationToken) {
-    $('#test-result').html('Loading...')
-    // set token to Authorization header
-    $.ajax({
-      method: 'GET',
-      //url: `${contentApiEndpoint}/test-token`,
-      url : `${contentApiEndpoint}`,
-      headers: {
-        Authorization: authorizationToken
-      }
-    })
-      .done((data) => {
-        $('#test-result').html(JSON.stringify(data))
-      })
-      .fail((error) => {
-        if ($('#auto-refresh').prop('checked')) {
-          $('#test-result').html('Refreshing token...')
-          refreshToken()
-        } else {
-          $('#test-result').html('Unauthorized')
-        }
-      })
-  } else {
-    console.log('22222222')
-    $('#test-result').html('Unauthorized')
-  }
-}
-
-function refreshToken() {
-  $('#test-result').html('Loading...')
-  console.log('refreshToken')
-  // refresh token
-  $.ajax({
-    method: 'GET',
-    url: `${authenticationEndpoint}/authentication/refresh/${localStorage.getItem('refresh_token')}`
-  })
-    .done((data) => {
-      if (data.errorMessage) {
-        $('#test-result').html(data.errorMessage)
-      } else {
-        saveResponse(data.authorization_token, data.refresh_token)
-        testToken()
-      }
-    })
-    .fail((error) => {
-      $('#test-result').html('Unauthorized')
-    })
-}
 
 function saveResponse(authorization_token, refresh_token) {
   // Save token to local storage for later use
@@ -113,7 +58,7 @@ $(() => {
     const aToken = query.authorization_token || ''
     const rToken = query.refresh_token || ''
     saveResponse(aToken, rToken)
-    window.history.replaceState({ authorization_token: '' }, 'serverless-authentication-gh-pages', '/serverless-authentication-gh-pages')
+    window.history.replaceState({ authorization_token: '' }, 'Login', '/')
 
     // trigger test token
     testToken()

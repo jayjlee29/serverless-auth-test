@@ -41,9 +41,13 @@ node_modules
 #SERVERLESS
 admin.env
 .env
-env.yml
+
 
 #Ignore _meta folder
 _meta
 
 **/.serverless
+
+#My List
+token_secret*
+env.yml

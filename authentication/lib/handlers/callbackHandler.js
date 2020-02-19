@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 // Config
 const { config, utils } = require('serverless-authentication')
 
@@ -13,6 +14,7 @@ const cache = require('../storage/cacheStorage')
 const users = require('../storage/usersStorage')
 
 const { createResponseData } = require('../helpers')
+const { getTokenSecret } = require('../utils/token')
 
 function createUserId(data, secret) {
   const hmac = crypto.createHmac('sha256', secret)
@@ -57,11 +59,15 @@ function tokenResponse(data, providerConfig) {
 const handleResponse = async ({ profile, state }, providerConfig) => {
   try {
     await cache.revokeState(state)
+    const tokenSecret = await getTokenSecret(Buffer.from(providerConfig.token_secret, 'base64'))
+    //console.log(JSON.stringify(profile))
 
-    const id = createUserId(
+    /*const id = createUserId(
       `${profile.provider}-${profile.id}`,
-      providerConfig.token_secret
-    )
+      tokenSecret
+    )*/
+
+    const id = profile.id
 
     const data = createResponseData(id, providerConfig)
     const userContext = await users.saveUser(
@@ -80,9 +86,10 @@ const handleResponse = async ({ profile, state }, providerConfig) => {
       id,
       data.authorizationToken.payload
     )
+
     const tokenRes = tokenResponse(
       Object.assign(data, { refreshToken: result }),
-      providerConfig
+      Object.assign(providerConfig, { token_secret: tokenSecret })
     )
 
     return tokenRes
@@ -112,7 +119,8 @@ async function callbackHandler(proxyEvent) {
       response = await facebook.callbackHandler(event, providerConfig)
       break
     case 'google':
-      response = await google.callbackHandler(event, providerConfig)
+      //response = await google.callbackHandler(event, providerConfig)
+      response = await customGoogle.callbackHandler(event, providerConfig)
       break
     case 'microsoft':
       response = await microsoft.callbackHandler(event, providerConfig)

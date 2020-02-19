@@ -23,7 +23,7 @@ const callbackHandler = async (event, config) => {
       name: response.names[0].displayName,
       email: response.emailAddresses ? response.emailAddresses[0].value : null,
       picture: response.photos ? response.photos[0].url : null,
-      provider: 'custom-google',
+      provider: 'google',
       at: response.access_token
     })
   }

@@ -4,7 +4,7 @@ const { config, utils } = require('serverless-authentication')
 // Common
 const cache = require('../storage/cacheStorage')
 const { createResponseData } = require('../helpers')
-
+const { getTokenSecret } = require('../utils/token')
 /**
  * Refresh Handler
  * @param event
@@ -26,9 +26,11 @@ async function refreshHandler(event) {
         results.payload
       )
     }
+
+    const tokenSecret = await getTokenSecret(Buffer.from(providerConfig.token_secret, 'base64'))
     const authorization_token = utils.createToken(
       data.authorizationToken.payload,
-      providerConfig.token_secret,
+      tokenSecret,
       data.authorizationToken.options
     )
     return { authorization_token, refresh_token: data.refreshToken, id }

@@ -1,6 +1,9 @@
 // Config
 const { config, utils } = require('serverless-authentication')
 
+const { getTokenSecret } = require('../utils/token')
+
+let TOKEN_SECRET = null
 const policyContext = (data) => {
   const context = {}
   Object.keys(data).forEach((k) => {
@@ -21,13 +24,20 @@ const authorize = async (event) => {
     try {
       // this example uses simple expiration time validation
       const providerConfig = config({ provider: '', stage })
-      const data = utils.readToken(authorizationToken, providerConfig.token_secret)
+
+      if (!TOKEN_SECRET) {
+        TOKEN_SECRET = await getTokenSecret(Buffer.from(providerConfig.token_secret, 'base64'))
+      }
+      const data = utils.readToken(authorizationToken, TOKEN_SECRET)
+
       policy = utils.generatePolicy(data.id, 'Allow', event.methodArn)
       policy.context = policyContext(data)
     } catch (err) {
+      console.error(err);
       error = 'Unauthorized'
     }
   } else {
+    console.error('Authorization is nothing!!')
     error = 'Unauthorized'
   }
   if (error) {
