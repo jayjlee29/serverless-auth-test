@@ -95,7 +95,8 @@ $(() => {
     const provider = $(event.currentTarget).attr('id')
     $('#token').html('Loading...')
     $('#test-result').html('Loading...')
-    window.location.href = `${authenticationEndpoint}/authentication/signin/${provider}?returnUrl=${encodeURI('https://www.naver.com')}`
+    // window.location.href = `${authenticationEndpoint}/authentication/signin/${provider}?returnUrl=${encodeURI('https://www.naver.com')}`
+    window.location.href = `${authenticationEndpoint}/authentication/signin/${provider}`
   })
 
   $('#logout').on('click', (event) => {

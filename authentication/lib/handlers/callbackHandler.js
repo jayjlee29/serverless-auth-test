@@ -93,9 +93,14 @@ const handleResponse = async ({ profile, state }, providerConfig) => {
 
     const expiredAt = Math.floor(Date.now() / 1000) + Number(providerConfig.expires_in || 15)
     // console.log(Math.floor(Date.now() / 1000), Number(providerConfig.expires_in || 15))
+    let arg1 = Object.assign(data, { refreshToken: result, expiredAt, returnUrl })
+
+    if (!arg1.returnUrl) {
+      delete arg1.returnUrl
+    }
 
     const tokenRes = tokenResponse(
-      Object.assign(data, { refreshToken: result, expiredAt, returnUrl }),
+      arg1,
       Object.assign(providerConfig, { token_secret: tokenSecret })
     )
 
