@@ -7,7 +7,7 @@
     "bluebird": "^3.5.1",
     "decamelize": "^2.0.0",
     "faunadb": "^2.5.0",
-    "log4js": "^3.0.5",
+    "log4js": "^6.4.0",
     "serverless-authentication": "^0.6.3",
     "serverless-authentication-facebook": "^0.6.0",
     "serverless-authentication-google": "^0.6.0",
